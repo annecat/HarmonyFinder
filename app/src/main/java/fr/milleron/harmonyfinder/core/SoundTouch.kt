@@ -31,8 +31,8 @@ class SoundTouch {
     }
 
     // Declare the external/native methods
-    external fun newInstance(): Long
-    external fun deleteInstance(handle: Long)
-    external fun processFile(handle: Long, inputFile: String, outputFile: String): Int
-    external fun getErrorString(): String
+    external private fun newInstance(): Long
+    external private fun deleteInstance(handle: Long)
+    external private fun processFile(handle: Long, inputFile: String, outputFile: String): Int
+    external private fun getErrorString(): String
 }
