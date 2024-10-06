@@ -25,6 +25,8 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import fr.milleron.harmonyfinder.data.HarmonyFinderModelRepository
+import fr.milleron.harmonyfinder.ui.harmonyfinderhome.HarmonyFinderModelUiState
+import fr.milleron.harmonyfinder.ui.harmonyfinderhome.HarmonyFinderModelViewModel
 
 /**
  * Example local unit test, which will execute on the development machine (host).

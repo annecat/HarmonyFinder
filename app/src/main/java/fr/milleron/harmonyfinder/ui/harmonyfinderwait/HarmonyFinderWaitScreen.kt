@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fr.milleron.harmonyfinder.ui.harmonyfindermodel
+package fr.milleron.harmonyfinder.ui.harmonyfinderwait
 
 import fr.milleron.harmonyfinder.ui.theme.MyApplicationTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -27,52 +27,30 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+
 
 @Composable
-fun HarmonyFinderModelScreen(modifier: Modifier = Modifier, viewModel: HarmonyFinderModelViewModel = hiltViewModel()) {
-    val items by viewModel.uiState.collectAsStateWithLifecycle()
-    if (items is HarmonyFinderModelUiState.Success) {
-        HarmonyFinderModelScreen(
-            items = (items as HarmonyFinderModelUiState.Success).data,
-            onSave = viewModel::addHarmonyFinderModel,
-            modifier = modifier
-        )
-    }
-}
-
-@Composable
-internal fun HarmonyFinderModelScreen(
-    items: List<String>,
-    onSave: (name: String) -> Unit,
+internal fun HarmonyFinderWaitScreen(
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
-        var nameHarmonyFinderModel by remember { mutableStateOf("Compose") }
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             TextField(
-                value = nameHarmonyFinderModel,
-                onValueChange = { nameHarmonyFinderModel = it }
+                value = "Matthieu",
+                onValueChange = { }
             )
 
-            Button(modifier = Modifier.width(96.dp), onClick = { onSave(nameHarmonyFinderModel) }) {
-                Text("Save")
+            Button(modifier = Modifier.width(150.dp), onClick = { }) {
+                Text("Miou")
             }
         }
-        items.forEach {
-            Text("Saved item: $it")
-        }
+
     }
 }
 
@@ -82,7 +60,7 @@ internal fun HarmonyFinderModelScreen(
 @Composable
 private fun DefaultPreview() {
     MyApplicationTheme {
-        HarmonyFinderModelScreen(listOf("Compose", "Room", "Kotlin"), onSave = {})
+        HarmonyFinderWaitScreen()
     }
 }
 
@@ -90,6 +68,6 @@ private fun DefaultPreview() {
 @Composable
 private fun PortraitPreview() {
     MyApplicationTheme {
-        HarmonyFinderModelScreen(listOf("Compose", "Room", "Kotlin"), onSave = {})
+        HarmonyFinderWaitScreen()
     }
 }

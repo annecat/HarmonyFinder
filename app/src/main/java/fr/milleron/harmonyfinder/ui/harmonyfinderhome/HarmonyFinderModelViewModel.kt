@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fr.milleron.harmonyfinder.ui.harmonyfindermodel
+package fr.milleron.harmonyfinder.ui.harmonyfinderhome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,9 +26,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import fr.milleron.harmonyfinder.data.HarmonyFinderModelRepository
-import fr.milleron.harmonyfinder.ui.harmonyfindermodel.HarmonyFinderModelUiState.Error
-import fr.milleron.harmonyfinder.ui.harmonyfindermodel.HarmonyFinderModelUiState.Loading
-import fr.milleron.harmonyfinder.ui.harmonyfindermodel.HarmonyFinderModelUiState.Success
+import fr.milleron.harmonyfinder.ui.harmonyfinderhome.HarmonyFinderModelUiState.Error
+import fr.milleron.harmonyfinder.ui.harmonyfinderhome.HarmonyFinderModelUiState.Loading
+import fr.milleron.harmonyfinder.ui.harmonyfinderhome.HarmonyFinderModelUiState.Success
 import javax.inject.Inject
 
 @HiltViewModel

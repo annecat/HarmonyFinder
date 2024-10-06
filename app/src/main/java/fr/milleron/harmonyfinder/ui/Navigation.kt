@@ -17,23 +17,80 @@
 package fr.milleron.harmonyfinder.ui
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import fr.milleron.harmonyfinder.ui.harmonyfindermodel.HarmonyFinderModelScreen
+import androidx.navigation.NavController
+import androidx.navigation.compose.*
+import fr.milleron.harmonyfinder.ui.harmonyfinderhome.HarmonyFinderHomeScreen
+import fr.milleron.harmonyfinder.ui.harmonyfinderwait.HarmonyFinderWaitScreen
 
-
-@Preview
 @Composable
 fun MainNavigation() {
     val navController = rememberNavController()
+    val items = listOf(
+        BottomNavItem("Home", "main", Icons.Default.Home),
+        BottomNavItem("Wait", "wait", Icons.Default.Favorite)
+    )
 
-    NavHost(navController = navController, startDestination = "main") {
-        composable("main") { HarmonyFinderModelScreen(modifier = Modifier.padding(16.dp)) }
-        // TODO: Add more destinations
+    Scaffold(
+        bottomBar = { BottomNavBar(navController = navController, items = items) }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = "main",
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable("main") { HarmonyFinderHomeScreen(modifier = Modifier.padding(16.dp)) }
+            composable("wait") { HarmonyFinderWaitScreen(modifier = Modifier.padding(16.dp)) }
+            // TODO: Add more destinations
+        }
     }
+}
+
+@Composable
+fun BottomNavBar(navController: NavController, items: List<BottomNavItem>) {
+    NavigationBar {
+        val currentRoute = currentRoute(navController)
+        items.forEach { item ->
+            NavigationBarItem(
+                icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
+                label = { Text(item.label) },
+                selected = currentRoute == item.route,
+                onClick = {
+                    navController.navigate(item.route) {
+                        // Avoid multiple copies of the same destination in the back stack
+                        popUpTo(navController.graph.startDestinationId) {
+                            saveState = true
+                        }
+                        // Restore state when re-selecting a previously selected item
+                        restoreState = true
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+    }
+}
+
+data class BottomNavItem(
+    val label: String,
+    val route: String,
+    val icon: ImageVector
+)
+
+@Composable
+fun currentRoute(navController: NavController): String? {
+    val navBackStackEntry = navController.currentBackStackEntryAsState().value
+    return navBackStackEntry?.destination?.route
 }

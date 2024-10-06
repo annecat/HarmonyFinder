@@ -70,11 +70,12 @@ android {
         shaders = false
     }
 
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+    sourceSets {
+        getByName("main") {
+            jniLibs.srcDirs("src/main/jniLibs")
         }
     }
+    ndkVersion = "28.0.12433566 rc1"
 }
 
 dependencies {

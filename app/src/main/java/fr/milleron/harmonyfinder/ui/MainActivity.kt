@@ -28,6 +28,11 @@ import fr.milleron.harmonyfinder.ui.theme.MyApplicationTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    companion object {
+        init {
+            System.loadLibrary("soundtouch")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +41,13 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
+
                 ) {
                     MainNavigation()
                 }
             }
         }
+        //processFile("test".toString(), "test".toString());
     }
+
 }
